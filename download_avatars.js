@@ -21,18 +21,19 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
+if (process.argv[2] !== undefined || process.argv[3] !== undefined){
 
-
-getRepoContributors("jquery", "jquery", function(err, result) {
-  var userData = JSON.parse(result);
-
-  userData.forEach(function (currentValue, index){
-    console.log(currentValue.avatar_url); 
-    downloadImageByURL(currentValue.avatar_url, `./${currentValue.login}.jpeg`)
-  })
-
-});
-
+  getRepoContributors(process.argv[2], process.argv[3], function(err, result) { //process.argv[2] + process.argv[3] to replace first 2 parameters
+    var userData = JSON.parse(result);
+    userData.forEach(function (currentValue, index){
+      console.log(currentValue.avatar_url); 
+      downloadImageByURL(currentValue.avatar_url, `./${currentValue.login}.jpeg`)
+    })
+  });
+  
+} else {
+  console.log('Error. Please provide owner and repo.');
+}
 
 function downloadImageByURL(url, filePath) {
  request.get(url)
@@ -44,3 +45,5 @@ function downloadImageByURL(url, filePath) {
      })
      .pipe(fs.createWriteStream(filePath)); 
 }
+
+
