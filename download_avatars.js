@@ -30,7 +30,7 @@ if (process.argv[2] !== undefined || process.argv[3] !== undefined){
       downloadImageByURL(currentValue.avatar_url, `./${currentValue.login}.jpeg`)
     })
   });
-  
+
 } else {
   console.log('Error. Please provide owner and repo.');
 }
@@ -45,5 +45,3 @@ function downloadImageByURL(url, filePath) {
      })
      .pipe(fs.createWriteStream(filePath)); 
 }
-
-
